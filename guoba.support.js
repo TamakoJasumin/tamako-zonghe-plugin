@@ -1,4 +1,4 @@
-import path from "path";
+﻿import path from "path";
 import { PLUGIN_RESOURCES_DIR } from "./javascript/model/path.js";
 import { autoReplySchema } from "./javascript/guoba/autoReply/index.js";
 import { dailyReportSchema } from "./javascript/guoba/dailyReport/index.js";
@@ -22,9 +22,9 @@ export function supportGuoba() {
         // 如果存在的话，那么填不填就无所谓了，填了就以你的信息为准
         pluginInfo: {
             // name 为插件唯一标识，尽量不要与其他插件重复
-            name: "juhkff-plugin",
+            name: "tamako-plugin",
             // title 为显示名称
-            title: "综合插件 (juhkff-plugin)",
+            title: "综合插件 (tamako-plugin)",
             // 插件描述
             description: "主动回复群聊、表情偷取、日报推送等综合功能插件",
             // 作者可以为字符串也可以为数组，当有多个作者时建议使用数组
@@ -32,7 +32,7 @@ export function supportGuoba() {
             // 作者主页地址。若author为数组，则authorLink也需要为数组，且需要与author一一对应
             authorLink: ["https://github.com/juhkff"],
             // 仓库地址
-            link: "https://gitee.com/juhkff/juhkff-plugin",
+            link: "https://gitee.com/juhkff/tamako-plugin",
             isV3: true,
             isV2: false,
             // 是否显示在左侧菜单，可选值：auto、true、false
@@ -80,4 +80,5 @@ export function supportGuoba() {
         },
     };
 }
+
 

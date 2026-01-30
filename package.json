@@ -1,5 +1,5 @@
-{
-  "name": "juhkff-plugin",
+﻿{
+  "name": "tamako-plugin",
   "version": "1.0.0",
   "author": "扎克芙芙",
   "description": "TRSS-Yunzai插件",
@@ -43,3 +43,4 @@
     "TRSS-Yunzai"
   ]
 }
+

@@ -1,4 +1,4 @@
-import { scheduleJob } from "node-schedule";
+﻿import { scheduleJob } from "node-schedule";
 import { jobDict } from "../cache/global.js";
 import { CronExpression } from "../types/index.js";
 
@@ -8,10 +8,10 @@ import { CronExpression } from "../types/index.js";
  * @param taskCron Cron 表达式
  */
 export function upsertJobFromConfig(taskName: string, taskCron: CronExpression, taskFunc: () => void | Promise<void>) {
-    if (jobDict[taskName] && jobDict[taskName].reschedule(taskCron)) logger.info(`[JUHKFF-PLUGIN] 已修改定时任务 ${taskName}: ${taskCron}`);
+    if (jobDict[taskName] && jobDict[taskName].reschedule(taskCron)) logger.info(`[tamako-plugin] 已修改定时任务 ${taskName}: ${taskCron}`);
     else {
         jobDict[taskName] = scheduleJob(taskName, taskCron, taskFunc);
-        logger.info(logger.cyan(`- [JUHKFF-PLUGIN] 已设置定时任务 ${taskName}: ${taskCron}`));
+        logger.info(logger.cyan(`- [tamako-plugin] 已设置定时任务 ${taskName}: ${taskCron}`));
     }
 }
 
@@ -23,6 +23,6 @@ export function deleteJob(taskName: string) {
     if (jobDict[taskName]) {
         jobDict[taskName].cancel();
         delete jobDict[taskName];
-        logger.info(logger.cyan(`[JUHKFF-PLUGIN] 已删除定时任务${taskName}`));
+        logger.info(logger.cyan(`[tamako-plugin] 已删除定时任务${taskName}`));
     }
 }

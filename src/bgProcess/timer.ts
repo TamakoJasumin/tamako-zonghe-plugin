@@ -1,4 +1,4 @@
-import fs from "fs";
+﻿import fs from "fs";
 import path from "path";
 import { PLUGIN_DATA_DIR } from "../model/path.js";
 
@@ -91,11 +91,11 @@ const cleanPixivImagesCache: () => NodeJS.Timeout = () => {
                 const fileStat = fs.statSync(filePath);
                 if (fileStat.isFile() && fileStat.birthtimeMs < fifteenMinutesAgo) {
                     fs.unlinkSync(filePath);
-                    logger.info(`- [JUHKFF-PLUGIN] [Pixiv]删除缓存文件: ${filePath}`);
+                    logger.info(`- [tamako-plugin] [Pixiv]删除缓存文件: ${filePath}`);
                 }
             });
         } catch (err) {
-            logger.error("[JUHKFF-PLUGIN] 清理Pixiv缓存文件任务执行出错:", err);
+            logger.error("[tamako-plugin] 清理Pixiv缓存文件任务执行出错:", err);
         }
     };
     // 程序启动时立即执行一次
@@ -111,3 +111,4 @@ process.on("exit", () => {
     clearInterval(cleanAudioTask);
     clearInterval(cleanPixivImagesTask);
 });
+

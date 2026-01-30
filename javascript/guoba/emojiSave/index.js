@@ -1,4 +1,4 @@
-export const emojiSaveSchema = () => [
+﻿export const emojiSaveSchema = () => [
     {
         label: "偷图配置",
         // 第三个分组标记开始
@@ -37,7 +37,7 @@ export const emojiSaveSchema = () => [
     {
         field: "emojiSave.emojiGalleryPath",
         label: "本地图库路径",
-        bottomHelpMessage: "相对 juhkff-plugin 目录的路径，支持 / 和 \\\\ 分隔符；请确保其为专用于图库的目录路径，且目录下仅包含图片文件",
+        bottomHelpMessage: "相对 tamako-plugin 目录的路径，支持 / 和 \\\\ 分隔符；请确保其为专用于图库的目录路径，且目录下仅包含图片文件",
         component: "Input",
         componentProps: {
             placeholder: "./data/emojiGallery",
@@ -95,3 +95,4 @@ export const emojiSaveSchema = () => [
         },
     },
 ];
+

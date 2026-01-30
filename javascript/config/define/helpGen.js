@@ -1,4 +1,4 @@
-import path from "path";
+﻿import path from "path";
 import fs from "fs";
 import YAML from "yaml";
 import chokidar from "chokidar";
@@ -9,7 +9,7 @@ export const helpGenConfig = {};
     const file = path.join(PLUGIN_CONFIG_DIR, `helpGen.yaml`);
     const defaultFile = path.join(PLUGIN_DEFAULT_CONFIG_DIR, `helpGen.yaml`);
     if (configFolderCheck(file, defaultFile))
-        logger.info(`- [JUHKFF-PLUGIN] 创建帮助生成配置`);
+        logger.info(`- [tamako-plugin] 创建帮助生成配置`);
     let lastHash = getFileHash(fs.readFileSync(file, "utf8"));
     const sync = (() => {
         const userConfig = YAML.parse(fs.readFileSync(file, "utf8"));
@@ -31,6 +31,7 @@ export const helpGenConfig = {};
             return;
         sync();
         lastHash = hash;
-        logger.info(logger.grey(`- [JUHKFF-PLUGIN] 同步帮助生成配置`));
-    }).on("error", (err) => { logger.error(`[JUHKFF-PLUGIN] 帮助生成配置同步异常`, err); });
+        logger.info(logger.grey(`- [tamako-plugin] 同步帮助生成配置`));
+    }).on("error", (err) => { logger.error(`[tamako-plugin] 帮助生成配置同步异常`, err); });
 })();
+

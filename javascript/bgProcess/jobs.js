@@ -1,4 +1,4 @@
-import fs from "fs";
+﻿import fs from "fs";
 import { config } from "../config/index.js";
 import { DAILY_REPORT_SAVE_PATH, dailyReport } from "../apps/dailyReport.js";
 import { sendChatRequest } from "../utils/handle.js";
@@ -37,7 +37,7 @@ export async function pushDailyReport() {
     }
 }
 export async function autoSaveDailyReport() {
-    logger.info("[JUHKFF-PLUGIN] 预处理 -> 生成日报");
+    logger.info("[tamako-plugin] 预处理 -> 生成日报");
     let doOnce = false;
     while (true) {
         try {
@@ -54,12 +54,12 @@ export async function autoSaveDailyReport() {
             await Thread.sleep(config.dailyReport.preHandleRetryInterval * 1000);
         }
     }
-    logger.info("[JUHKFF-PLUGIN] 预处理 -> 生成日报成功");
+    logger.info("[tamako-plugin] 预处理 -> 生成日报成功");
 }
 export async function emotionGenerate() {
     let model = config.autoReply.chatModel;
     var emotion = await sendChatRequest(null, config.autoReply.emotionGeneratePrompt, model, [], false);
-    logger.info(`[JUHKFF-PLUGIN] 情感生成: ${emotion}`);
+    logger.info(`[tamako-plugin] 情感生成: ${emotion}`);
     return emotion;
 }
 export async function autoSaveEmotion() {
@@ -94,3 +94,4 @@ Bot.on(EVENT_UPDATE_DAILY_REPORT_PUSH_TIME, () => {
         deleteJob(EMOTION_GENERATE);
     }
 });
+

@@ -1,4 +1,4 @@
-import path from "path";
+﻿import path from "path";
 import fs from "fs";
 import { pathToFileURL } from "url";
 import { renderPage } from "../utils/page.js"
@@ -36,13 +36,13 @@ export class helpGen extends plugin {
                 await e.reply('目前版本不支持，请升级至最新版Yunzai，或尝试切换hd模式')
                 return true;
             }
-            e.runtime.render("juhkff-plugin", "help/index", {
-                // cssFile: "../../../../../plugins/juhkff-plugin/resources/help/index.css",
-                // 用绝对路径似乎也没问题，调试时将Yunzai/temp/html/juhkff-plugin/help/index/index.html中的css导入路径改为相对路径
+            e.runtime.render("tamako-plugin", "help/index", {
+                // cssFile: "../../../../../plugins/tamako-plugin/resources/help/index.css",
+                // 用绝对路径似乎也没问题，调试时将Yunzai/temp/html/tamako-plugin/help/index/index.html中的css导入路径改为相对路径
                 cssFile: path.join(PLUGIN_RESOURCES_DIR, "help", "index.css"),
                 quality: 100,   // 还是好糊啊啊啊
                 titleZh: Objects.isNull(config.helpGen?.titleZh) ? config.helpGen.command : config.helpGen?.titleZh,
-                titleEn: Objects.isNull(config.helpGen?.titleEn) ? "JUHKFF-PLUGIN" : config.helpGen?.titleEn,
+                titleEn: Objects.isNull(config.helpGen?.titleEn) ? "tamako-plugin" : config.helpGen?.titleEn,
                 helpGroup: helpList.filter((item) => item?.type === "group" && item?.enable),
                 helpActive: helpList.filter((item) => item?.type === "active" && item?.enable),
                 helpPassive: helpList.filter((item) => item?.type === "passive" && item?.enable),
@@ -55,7 +55,7 @@ export class helpGen extends plugin {
                 {
                     cssFile: "index.css",
                     titleZh: Objects.isNull(config.helpGen?.titleZh) ? config.helpGen.command : config.helpGen?.titleZh,
-                    titleEn: Objects.isNull(config.helpGen?.titleEn) ? "JUHKFF-PLUGIN" : config.helpGen?.titleEn,
+                    titleEn: Objects.isNull(config.helpGen?.titleEn) ? "tamako-plugin" : config.helpGen?.titleEn,
                     helpGroup: helpList.filter((item) => item?.type === "group" && item?.enable),
                     helpActive: helpList.filter((item) => item?.type === "active" && item?.enable),
                     helpPassive: helpList.filter((item) => item?.type === "passive" && item?.enable),
@@ -94,7 +94,7 @@ export class helpGen extends plugin {
                                 helpList.push((this.extraHelp[fileName] as HelpType));
                         }
                     } else {
-                        logger.warn(`[JUHKFF-PLUGIN] 插件 ${fileName} 未获取到帮助提示项`);
+                        logger.warn(`[tamako-plugin] 插件 ${fileName} 未获取到帮助提示项`);
                     }
                 } else if (plugin.help instanceof Function) {
                     helpList.push(plugin.help());
@@ -238,3 +238,4 @@ var commandPromptHelp = (): HelpType => {
         })),
     }
 }
+

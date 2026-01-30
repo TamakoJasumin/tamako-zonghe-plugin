@@ -1,9 +1,9 @@
-import fs, { appendFile } from "fs";
+﻿import fs, { appendFile } from "fs";
 import path from "path";
 import { fileURLToPath, pathToFileURL } from 'url';
 
 const _filename = fileURLToPath(import.meta.url);
-// 插件根目录 /../../plugins/juhkff-plugin
+// 插件根目录 /../../plugins/tamako-plugin
 const pluginRoot = path.dirname(_filename);
 
 if (!global.segment) {
@@ -12,8 +12,8 @@ if (!global.segment) {
 
 let ret = [];
 
-logger.info(logger.yellow("- [JUHKFF-PLUGIN] 正在载入"));
-logger.info(logger.redBright("- [JUHKFF-PLUGIN] 如果插件更新后出现问题，可能是新的配置同步时出现错误，可以尝试删除并重装该插件"));
+logger.info(logger.yellow("- [tamako-plugin] 正在载入"));
+logger.info(logger.redBright("- [tamako-plugin] 如果插件更新后出现问题，可能是新的配置同步时出现错误，可以尝试删除并重装该插件"));
 
 async function getFiles(dir) {
     const dirs = await fs.promises.readdir(dir, { withFileTypes: true });
@@ -59,6 +59,7 @@ for (let i in files) {
     apps[name] = ret[i].value[validKey];
 }
 
-logger.info(logger.green("- [JUHKFF-PLUGIN] 载入成功"));
+logger.info(logger.green("- [tamako-plugin] 载入成功"));
 
 export { apps };
+

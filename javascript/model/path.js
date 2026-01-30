@@ -1,10 +1,10 @@
-import path from "path";
+﻿import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 // const _path = process.cwd().replace(/\\/g, "/");
 const _filename = fileURLToPath(import.meta.url);
 /**
- * 插件根目录（如 /project/plugins/juhkff-plugin）
+ * 插件根目录（如 /project/plugins/tamako-plugin）
  */
 const PLUGIN_ROOT_DIR = path.resolve(_filename, '..', '..', '..');
 /**
@@ -41,3 +41,4 @@ if (!fs.existsSync(path.dirname(PIXIV_INIT_LOCK_PATH))) {
 if (!fs.existsSync(PIXIV_INIT_LOCK_PATH))
     fs.closeSync(fs.openSync(PIXIV_INIT_LOCK_PATH, 'w')); // 创建空文件占位
 export { PLUGIN_NAME, PLUGIN_APP_DIR, PLUGIN_ROOT_DIR, PLUGIN_RESOURCES_DIR, PLUGIN_CONFIG_DIR, PLUGIN_DEFAULT_CONFIG_DIR, PLUGIN_DATA_DIR, PIXIV_INIT_LOCK_PATH, };
+

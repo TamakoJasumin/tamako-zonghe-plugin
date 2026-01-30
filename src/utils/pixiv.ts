@@ -1,4 +1,4 @@
-import path from "path";
+﻿import path from "path";
 import fs from "fs";
 import { PLUGIN_DATA_DIR } from "../model/path.js";
 import { Mutex } from "async-mutex";
@@ -16,7 +16,7 @@ export async function firstSaveUserIllusts(userId: string, proxyAgent?: HttpsPro
             // 倒序排列
             let ids = response.map(illust => illust.illustID).reverse();
             if (ids.length === 0) ids = ["-1"];
-            // logger.info(`[JUHKFF-PLUGIN] 已订阅pixiv用户 ${userId} 的插画，最后的插画作品ID为：${ids[0]}`);
+            // logger.info(`[tamako-plugin] 已订阅pixiv用户 ${userId} 的插画，最后的插画作品ID为：${ids[0]}`);
             const filePath = path.join(PLUGIN_DATA_DIR, "pixiv", `user_subscribe_${userId}.json`);
             if (!fs.existsSync(path.dirname(filePath))) {
                 fs.mkdirSync(path.dirname(filePath), { recursive: true });
@@ -27,16 +27,16 @@ export async function firstSaveUserIllusts(userId: string, proxyAgent?: HttpsPro
             return true;
         } catch (error) {
             if (error.status == 429) {
-                logger.warn(`[JUHKFF-PLUGIN] [Pixiv]请求频繁触发反爬虫保护，等待2min后自动重试（可忽视此条）`);
+                logger.warn(`[tamako-plugin] [Pixiv]请求频繁触发反爬虫保护，等待2min后自动重试（可忽视此条）`);
                 await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 2)); // 等待1-3分钟间隔，防止请求过于集中
                 continue;
             }
             if (error.code === "ECONNRESET") {
-                logger.warn(`[JUHKFF-PLUGIN] [Pixiv]连接被重置，等待2min后自动重试（可忽视此条）`);
+                logger.warn(`[tamako-plugin] [Pixiv]连接被重置，等待2min后自动重试（可忽视此条）`);
                 await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 2));
                 continue;
             }
-            logger.error(`[JUHKFF-PLUGIN] [Pixiv]订阅用户 ${userId} 的作品失败：${error}`);
+            logger.error(`[tamako-plugin] [Pixiv]订阅用户 ${userId} 的作品失败：${error}`);
             return false;
         }
     }
@@ -45,7 +45,7 @@ export async function firstSaveUserIllusts(userId: string, proxyAgent?: HttpsPro
 export async function createSubscribeTimer(userId: number, pixivConfig: Pixiv, proxyAgent?: HttpsProxyAgent<string>) {
     const filePath = path.join(PLUGIN_DATA_DIR, "pixiv", `user_subscribe_${userId}.json`);
     if (!fs.existsSync(filePath)) {
-        logger.error(`[JUHKFF-PLUGIN] [Pixiv]订阅配置文件不存在：${filePath}`);
+        logger.error(`[tamako-plugin] [Pixiv]订阅配置文件不存在：${filePath}`);
         return;
     }
     const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
@@ -69,7 +69,7 @@ async function checkAndFetchUserNewestIllustId(lock: Mutex, intervalConfig: { us
             const lastId = ids[0];
             if (lastId === intervalConfig.lastIllustId) return;
             // 有更新
-            logger.info(`[JUHKFF-PLUGIN] [Pixiv]用户 ${intervalConfig.userId} 发布新插画，ID为：${lastId}`);
+            logger.info(`[tamako-plugin] [Pixiv]用户 ${intervalConfig.userId} 发布新插画，ID为：${lastId}`);
             const filePath = path.join(PLUGIN_DATA_DIR, "pixiv", `user_subscribe_${intervalConfig.userId}.json`);
             // 机器人发送最新的作品，暂时只取第一张
             const newestImageNumber = response[response.length - 1].urls.length;
@@ -86,12 +86,12 @@ async function checkAndFetchUserNewestIllustId(lock: Mutex, intervalConfig: { us
             return;
         } catch (error) {
             if (error.status == 429) {
-                logger.warn(`[JUHKFF-PLUGIN] [Pixiv]请求频繁触发反爬虫保护，等待2min后自动重试（可忽视此条）`);
+                logger.warn(`[tamako-plugin] [Pixiv]请求频繁触发反爬虫保护，等待2min后自动重试（可忽视此条）`);
                 await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 2)); // 等待1-3分钟间隔，防止请求过于集中
                 continue;
             }
             if (error.code === 'ECONNRESET') {
-                logger.warn(`[JUHKFF-PLUGIN] [Pixiv]连接被重置，等待2min后自动重试（可忽视此条）`);
+                logger.warn(`[tamako-plugin] [Pixiv]连接被重置，等待2min后自动重试（可忽视此条）`);
                 await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 2));
                 continue;
             }
@@ -144,11 +144,11 @@ export async function downloadPixivImage(illustId: string, imageUrl: string): Pr
                     });
                 }).catch(async err => {
                     if (err.response?.status === 429) {
-                        logger.warn(`[JUHKFF-PLUGIN] [Pixiv]下载请求触发反爬虫保护，等待一段时间后自动重试（可忽视此条）`);
+                        logger.warn(`[tamako-plugin] [Pixiv]下载请求触发反爬虫保护，等待一段时间后自动重试（可忽视此条）`);
                         await new Promise(resolve => setTimeout(resolve, 1000 * 60 + randomInt(0, 20) * 1000));
                         resolve(false);
                     } else {
-                        logger.error(`[JUHKFF-PLUGIN] [Pixiv]下载Pixiv订阅图片失败: ${err}`);
+                        logger.error(`[tamako-plugin] [Pixiv]下载Pixiv订阅图片失败: ${err}`);
                         // 清理临时文件
                         if (fs.existsSync(tempFilePath)) {
                             fs.unlinkSync(tempFilePath);
@@ -165,7 +165,7 @@ export async function downloadPixivImage(illustId: string, imageUrl: string): Pr
             try {
                 await release();
             } catch (err) {
-                logger.warn(`[JUHKFF-PLUGIN] [Pixiv]释放文件锁时出错: ${err}`);
+                logger.warn(`[tamako-plugin] [Pixiv]释放文件锁时出错: ${err}`);
             }
         }
     }

@@ -1,4 +1,4 @@
-import path from "path";
+﻿import path from "path";
 import fs from "fs";
 import YAML from "yaml";
 import chokidar from "chokidar";
@@ -27,7 +27,7 @@ export let proxyAgent: HttpsProxyAgent<string> | null = null;
 (() => {
     const file = path.join(PLUGIN_CONFIG_DIR, `pixiv.yaml`);
     const defaultFile = path.join(PLUGIN_DEFAULT_CONFIG_DIR, `pixiv.yaml`);
-    if (configFolderCheck(file, defaultFile)) logger.info(`- [JUHKFF-PLUGIN] 创建Pixiv配置`);
+    if (configFolderCheck(file, defaultFile)) logger.info(`- [tamako-plugin] 创建Pixiv配置`);
 
     let lastHash: string = getFileHash(fs.readFileSync(file, "utf8"));
 
@@ -63,8 +63,8 @@ export let proxyAgent: HttpsProxyAgent<string> | null = null;
         if (hash === lastHash) return;
         sync();
         lastHash = hash;
-        logger.info(logger.grey(`- [JUHKFF-PLUGIN] 同步Pixiv配置`));
-    }).on("error", (err) => { logger.error(`- [JUHKFF-PLUGIN] Pixiv配置同步异常`, err) })
+        logger.info(logger.grey(`- [tamako-plugin] 同步Pixiv配置`));
+    }).on("error", (err) => { logger.error(`- [tamako-plugin] Pixiv配置同步异常`, err) })
 })();
 
 
@@ -108,7 +108,7 @@ async function initSubscribeTimer() {
             while (true) {
                 let release;
                 try {
-                    logger.info(`- [JUHKFF-PLUGIN] [Pixiv]获取订阅记录点中: 用户ID ${item.userId}`);
+                    logger.info(`- [tamako-plugin] [Pixiv]获取订阅记录点中: 用户ID ${item.userId}`);
                     const success = await firstSaveUserIllusts(item.userId.toString(), proxyAgent);
                     if (!success) break;
                     // 二次判断，如果在请求的间隔内取消了订阅，则不添加定时器
@@ -124,21 +124,21 @@ async function initSubscribeTimer() {
                     });
                     const intervalId = await createSubscribeTimer(item.userId, pixivConfig, proxyAgent);
                     pixivSubscribeTimerDict[item.userId] = intervalId;
-                    logger.info(`- [JUHKFF-PLUGIN] [Pixiv]成功订阅: 用户ID ${item.userId}`);
+                    logger.info(`- [tamako-plugin] [Pixiv]成功订阅: 用户ID ${item.userId}`);
                     break;
                 } catch (error) {
                     if (error.code === "ECONNRESET") {
-                        logger.warn(`- [JUHKFF-PLUGIN] [Pixiv]获取订阅记录点请求被重置，等待2min后自动重试（可忽视此条）`);
+                        logger.warn(`- [tamako-plugin] [Pixiv]获取订阅记录点请求被重置，等待2min后自动重试（可忽视此条）`);
                         await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 2));
                         continue; // 重试
                     }
-                    logger.error(`- [JUHKFF-PLUGIN] [Pixiv]订阅${item.userId}失败`, error);
+                    logger.error(`- [tamako-plugin] [Pixiv]订阅${item.userId}失败`, error);
                 } finally {
                     if (release) {
                         try {
                             await release();
                         } catch (err) {
-                            logger.warn(`[JUHKFF-PLUGIN] [Pixiv]释放文件锁时出错: ${err}`);
+                            logger.warn(`[tamako-plugin] [Pixiv]释放文件锁时出错: ${err}`);
                         }
                     }
                 }
@@ -168,18 +168,18 @@ async function removeUnusedSubscribeTimer() {
             if (!subscribeGroup) {
                 clearInterval(pixivSubscribeTimerDict[key]);
                 delete pixivSubscribeTimerDict[key];
-                logger.info(`- [JUHKFF-PLUGIN] [Pixiv]清除订阅: 用户ID ${userId}`);
+                logger.info(`- [tamako-plugin] [Pixiv]清除订阅: 用户ID ${userId}`);
             }
         }
     } catch (error) {
-        logger.error(`- [JUHKFF-PLUGIN] [Pixiv]清除订阅定时器失败`, error);
+        logger.error(`- [tamako-plugin] [Pixiv]清除订阅定时器失败`, error);
     }
     finally {
         if (release) {
             try {
                 await release();
             } catch (err) {
-                logger.warn(`[JUHKFF-PLUGIN] [Pixiv]释放文件锁时出错: ${err}`);
+                logger.warn(`[tamako-plugin] [Pixiv]释放文件锁时出错: ${err}`);
             }
         }
     }

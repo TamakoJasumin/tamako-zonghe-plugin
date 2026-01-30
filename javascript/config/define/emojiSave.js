@@ -1,4 +1,4 @@
-import path from "path";
+﻿import path from "path";
 import fs from "fs";
 import YAML from "yaml";
 import chokidar from "chokidar";
@@ -21,7 +21,7 @@ function reloadEmojiGallery(oldEmojiGalleryPath) {
     const file = path.join(PLUGIN_CONFIG_DIR, `emojiSave.yaml`);
     const defaultFile = path.join(PLUGIN_DEFAULT_CONFIG_DIR, `emojiSave.yaml`);
     if (configFolderCheck(file, defaultFile))
-        logger.info(`- [JUHKFF-PLUGIN] 创建表情包配置`);
+        logger.info(`- [tamako-plugin] 创建表情包配置`);
     let lastHash = getFileHash(fs.readFileSync(file, "utf8"));
     let oldEmojiGalleryPath = null;
     const sync = (() => {
@@ -47,6 +47,7 @@ function reloadEmojiGallery(oldEmojiGalleryPath) {
             return;
         sync();
         lastHash = hash;
-        logger.info(logger.grey(`- [JUHKFF-PLUGIN] 同步表情偷取配置`));
-    }).on("error", (err) => { logger.error(`[JUHKFF-PLUGIN] 表情偷取配置同步异常`, err); });
+        logger.info(logger.grey(`- [tamako-plugin] 同步表情偷取配置`));
+    }).on("error", (err) => { logger.error(`[tamako-plugin] 表情偷取配置同步异常`, err); });
 })();
+

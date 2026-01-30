@@ -54,7 +54,7 @@ export const autoReplyConfig: AutoReply = {} as AutoReply;
 (() => {
     const file = path.join(PLUGIN_CONFIG_DIR, `autoReply.yaml`);
     const defaultFile = path.join(PLUGIN_DEFAULT_CONFIG_DIR, `autoReply.yaml`);
-    if (configFolderCheck(file, defaultFile)) logger.info(`- [JUHKFF-PLUGIN] 创建主动群聊配置`);
+    if (configFolderCheck(file, defaultFile)) logger.info(`- [tamako-plugin] 创建主动群聊配置`);
 
     const sync = (() => {
         const userConfig = YAML.parse(fs.readFileSync(file, "utf8")) as AutoReply;
@@ -98,8 +98,8 @@ export const autoReplyConfig: AutoReply = {} as AutoReply;
         sync();
         afterUpdate(previous);
         lastHash = hash;
-        logger.info(logger.grey(`- [JUHKFF-PLUGIN] 同步主动群聊配置`));
-    }).on("error", (err) => { logger.error(`[JUHKFF-PLUGIN] 主动群聊配置同步异常`, err) })
+        logger.info(logger.grey(`- [tamako-plugin] 同步主动群聊配置`));
+    }).on("error", (err) => { logger.error(`[tamako-plugin] 主动群聊配置同步异常`, err) })
 })();
 
 /**

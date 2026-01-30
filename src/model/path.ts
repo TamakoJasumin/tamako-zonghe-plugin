@@ -1,11 +1,11 @@
-import path from "path";
+﻿import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 
 // const _path = process.cwd().replace(/\\/g, "/");
 const _filename = fileURLToPath(import.meta.url);
 /**
- * 插件根目录（如 /project/plugins/juhkff-plugin）
+ * 插件根目录（如 /project/plugins/tamako-plugin）
  */
 const PLUGIN_ROOT_DIR: string = path.resolve(_filename, '..', '..', '..');
 
@@ -59,3 +59,4 @@ export {
     PLUGIN_DATA_DIR,
     PIXIV_INIT_LOCK_PATH,
 };
+

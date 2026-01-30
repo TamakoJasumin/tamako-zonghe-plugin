@@ -1,4 +1,4 @@
-import fs from "fs";
+﻿import fs from "fs";
 import path from "path";
 import YAML from "yaml";
 import crypto from "crypto";
@@ -11,7 +11,7 @@ import { PLUGIN_CONFIG_DIR } from "../model/path.js";
  */
 export function configFolderCheck(file, defaultFile) {
     if (!fs.existsSync(PLUGIN_CONFIG_DIR)) {
-        throw new Error("[JUHKFF-PLUGIN]插件缺失配置文件夹");
+        throw new Error("[tamako-plugin]插件缺失配置文件夹");
     }
     if (!fs.existsSync(path.dirname(file)))
         fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -71,3 +71,4 @@ export function getFileHash(content) {
     return crypto.createHash("sha1").update(content).digest("hex");
 }
 ;
+

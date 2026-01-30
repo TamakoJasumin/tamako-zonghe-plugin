@@ -1,4 +1,4 @@
-import path from "path";
+﻿import path from "path";
 import fs from "fs";
 import YAML from "yaml";
 import chokidar from "chokidar";
@@ -19,7 +19,7 @@ export const autoReplyConfig = {};
     const file = path.join(PLUGIN_CONFIG_DIR, `autoReply.yaml`);
     const defaultFile = path.join(PLUGIN_DEFAULT_CONFIG_DIR, `autoReply.yaml`);
     if (configFolderCheck(file, defaultFile))
-        logger.info(`- [JUHKFF-PLUGIN] 创建主动群聊配置`);
+        logger.info(`- [tamako-plugin] 创建主动群聊配置`);
     const sync = (() => {
         const userConfig = YAML.parse(fs.readFileSync(file, "utf8"));
         const defaultConfig = YAML.parse(fs.readFileSync(defaultFile, "utf8"));
@@ -62,8 +62,8 @@ export const autoReplyConfig = {};
         sync();
         afterUpdate(previous);
         lastHash = hash;
-        logger.info(logger.grey(`- [JUHKFF-PLUGIN] 同步主动群聊配置`));
-    }).on("error", (err) => { logger.error(`[JUHKFF-PLUGIN] 主动群聊配置同步异常`, err); });
+        logger.info(logger.grey(`- [tamako-plugin] 同步主动群聊配置`));
+    }).on("error", (err) => { logger.error(`[tamako-plugin] 主动群聊配置同步异常`, err); });
 })();
 /**
  * 针对该功能的配置同步
@@ -77,3 +77,4 @@ export function changePrompt(promptName) {
     // 写入配置文件
     saveConfigToFile(autoReplyConfig, "autoReply.yaml");
 }
+

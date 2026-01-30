@@ -1,4 +1,4 @@
-import chokidar from "chokidar";
+﻿import chokidar from "chokidar";
 import fs from "fs";
 import { getAllFiles } from "../../utils/file.js";
 import { PLUGIN_ROOT_DIR } from "../path.js";
@@ -21,7 +21,7 @@ export function loadEmojiGallery(galleryPath) {
         fs.mkdirSync(galleryPath, { recursive: true });
     getAllFiles(galleryPath, emojiGallery);
     if (emojiGallery.length > 0)
-        logger.info(logger.grey(`- [JUHKFF-PLUGIN] 表情包本地图库：加载${emojiGallery.length}个文件`));
+        logger.info(logger.grey(`- [tamako-plugin] 表情包本地图库：加载${emojiGallery.length}个文件`));
     const watcher = chokidar.watch(galleryPath, {
         persistent: true,
         ignoreInitial: true,
@@ -32,16 +32,17 @@ export function loadEmojiGallery(galleryPath) {
     }).on("add", (path) => {
         if (fs.existsSync(path) && fs.lstatSync(path).isFile()) {
             emojiGallery.push(path);
-            logger.info(`[JUHKFF-PLUGIN]表情图库新增文件：${path}`);
+            logger.info(`[tamako-plugin]表情图库新增文件：${path}`);
         }
     }).on("unlink", (path) => {
         const index = emojiGallery.indexOf(path);
         if (index > -1) {
             emojiGallery.splice(index, 1);
-            logger.info(`[JUHKFF-PLUGIN]表情图库删除文件：${path}`);
+            logger.info(`[tamako-plugin]表情图库删除文件：${path}`);
         }
     }).on("error", (error) => {
-        logger.error(`[JUHKFF-PLUGIN]表情图库监控异常`, error);
+        logger.error(`[tamako-plugin]表情图库监控异常`, error);
     });
     return watcher;
 }
+
